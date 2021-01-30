@@ -25,14 +25,16 @@ export default function LoginScreen({route,navigation}) {
             </View>
 
             <View>
-                <TouchableOpacity onPress={() => { navigation.navigate("SignupScreen") }}style={styles.buttonContainer}>
+                <TouchableOpacity onPress={() => { navigation.navigate("ContactsScreen") }} style={styles.buttonContainer}>
                     <Text style={styles.buttonText}>Log in</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.noAccountContainer}>
                 <Text style={styles.noAccountText}>Don't have an account?</Text>
+                <TouchableOpacity onPress={() => { navigation.navigate("SignupScreen")}}>
                 <Text style={styles.signupText}>Sign up</Text>
+                </TouchableOpacity>
             </View>
 
         </ScrollView>
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 50,
+        marginTop:70
         // justifyContent:"space-around"
     },
     loginText: {
