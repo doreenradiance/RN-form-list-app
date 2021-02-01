@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View , TextInput ,TouchableOpacity,ScrollView} from 'react-native'
 
-export default function SignupScreen({route,navigation}) {
+ function SignupScreen({route,navigation}) {
     let SignupScreen = route.params
     return (
         <ScrollView style={styles.container} showVerticalScrollIndicator={false}>
@@ -100,3 +100,5 @@ const styles = StyleSheet.create({
 
     }
 })
+
+export default SignupScreen;

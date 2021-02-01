@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native';
+import {connect} from "react-redux";
 
-export default function LoginScreen({route,navigation}) {
+function LoginScreen({route,navigation}) {
     let LoginScreen = route.params
     return (
         <ScrollView style={styles.container} showVerticalScrollIndicator={false}>
@@ -98,3 +99,4 @@ const styles = StyleSheet.create({
 })
 
 
+export default connect({}, {}) (LoginScreen)

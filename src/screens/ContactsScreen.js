@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { FontAwesome, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
-export default function ContactsScreen({ route, }) {
+function ContactsScreen({ route, }) {
     let Screen = route.params
     return (
         <ScrollView>
@@ -134,3 +134,5 @@ const styles = StyleSheet.create({
         marginLeft: 10
     }
 })
+
+export default ContactsScreen;
