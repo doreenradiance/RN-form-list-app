@@ -99,4 +99,7 @@ const styles = StyleSheet.create({
 })
 
 
-export default connect({}, {}) (LoginScreen)
+export default connect(
+    function () {
+        return {}
+    }, {}) (LoginScreen)
