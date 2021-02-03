@@ -39,7 +39,9 @@ import { StyleSheet, Text, View , TextInput ,TouchableOpacity,ScrollView} from '
 
         <View style={styles.noAccountContainer}>
             <Text style={styles.noAccountText}>Don't have an account?</Text>
+            <TouchableOpacity onPress={() => { navigation.navigate("LoginScreen") }}>
             <Text style={styles.signupText}>Log In</Text>
+            </TouchableOpacity>
         </View>
         
     </ScrollView>
