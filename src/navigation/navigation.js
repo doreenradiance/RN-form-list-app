@@ -5,10 +5,12 @@ import SignupScreen from "../screens/SignupScreen"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from "react-redux";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { logout } from "../redux/actions/authActions";
 
 const Stack = createStackNavigator()
 
- function AppContainer({auth}) {
+ function AppContainer({auth,logout}) {
   return (
     <NavigationContainer>
       {
@@ -16,7 +18,12 @@ const Stack = createStackNavigator()
           <Stack.Navigator>
             <Stack.Screen
               options={{
-                header: () => null
+                headerRight: () => (
+                  <TouchableOpacity style={{marginRight:20}} 
+                  onPress={logout}>
+                    <Text>Logout</Text>
+                  </TouchableOpacity>
+                )
               }}
               name='ContactsScreen' component={ContactsScreen} />
           </Stack.Navigator>
@@ -44,4 +51,4 @@ const mapStateToProp = (state) => {
   return { auth: state }
 }
 
-export default connect(mapStateToProp)(AppContainer);
+export default connect(mapStateToProp,{logout})(AppContainer);
