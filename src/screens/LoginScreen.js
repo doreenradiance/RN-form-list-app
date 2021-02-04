@@ -58,7 +58,7 @@ class LoginScreen extends Component {
                 </View>
 
                 <View>
-                    <TouchableOpacity onPress={this.onhandleSubmit} style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={this.handleOnSubmit} style={styles.buttonContainer}>
                         <Text style={styles.buttonText}>Log in</Text>
                     </TouchableOpacity>
                 </View>

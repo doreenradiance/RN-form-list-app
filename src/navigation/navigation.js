@@ -3,32 +3,45 @@ import ContactsScreen from "../screens/ContactsScreen"
 import LoginScreen from "../screens/LoginScreen"
 import SignupScreen from "../screens/SignupScreen"
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack';
+import { connect } from "react-redux";
 
 const Stack = createStackNavigator()
 
-export default function AppContainer() {
+ function AppContainer({auth}) {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          options={{
-            header: () => null
-          }}
-          name='LoginScreen' component={LoginScreen} />
+      {
+        auth.login ?
+          <Stack.Navigator>
+            <Stack.Screen
+              options={{
+                header: () => null
+              }}
+              name='ContactsScreen' component={ContactsScreen} />
+          </Stack.Navigator>
+          :
+          <Stack.Navigator>
+            <Stack.Screen
+              options={{
+                header: () => null
+              }}
+              name='LoginScreen' component={LoginScreen} />
 
-        <Stack.Screen
-          options={{
-            header: () => null
-          }}
-          name='SignupScreen' component={SignupScreen} />
+            <Stack.Screen
+              options={{
+                header: () => null
+              }}
+              name='SignupScreen' component={SignupScreen} />
+          </Stack.Navigator>
 
-        <Stack.Screen
-          // options={{
-          //   header: () => null
-          // }}
-          name='ContactsScreen' component={ContactsScreen} />
-      </Stack.Navigator>
+      }
     </NavigationContainer>
-  )
+  );
 }
+
+const mapStateToProp = (state) => {
+  return { auth: state }
+}
+
+export default connect(mapStateToProp)(AppContainer);
