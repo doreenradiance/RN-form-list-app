@@ -1,53 +1,85 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, TextInput, TouchableOpacity, View, StyleSheet, ScrollView } from 'react-native';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import { loginEmailAccount } from "../redux/actions/authActions";
 
-function LoginScreen({route,navigation}) {
-    let LoginScreen = route.params
-    return (
-        <ScrollView style={styles.container} showVerticalScrollIndicator={false}>
-            <View style={styles.loginTextContainer}>
-                <Text style={styles.loginText}>Log In</Text>
-            </View>
+class LoginScreen extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: "",
+            password: "",
+        }
+    }
 
-            <View>
-                <TextInput style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    placeholder="Username"
-                />
+    handleUpdateState = (name, value) => {
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleOnSubmit = () => {
+
+        this.props.loginEmailAccount(this.state.email, this.state.password)
+    }
+
+    render() {
+
+        const { route, navigation,auth} = this.props
+        let LoginScreen = route.params
+        return (
+            <ScrollView style={styles.container} showVerticalScrollIndicator={false}>
+                <View style={styles.loginTextContainer}>
+                    <Text style={styles.loginText}>Log In</Text>
+                </View>
+
+                <View>
+
+                {auth.error.login &&
+                        <Text style={{ color: 'red' }}>{auth.error.login}</Text>
+                    }
+
+                    <TextInput style={styles.input}
+                        placeholderTextColor="#aaaaaa"
+                        onChangeText={(text) => { this.handleUpdateState("email", text) }}
+                        value={this.state.email}
+                        placeholder="Email"
+                    />
 
 
-                <TextInput style={styles.input}
-                    placeholderTextColor="#aaaaaa"
-                    placeholder="Password"
-                    secureTextEntry={true}
-                />
-                <Text style={styles.forgotPassword}>Forgot password?</Text>
-            </View>
+                    <TextInput style={styles.input}
+                        placeholderTextColor="#aaaaaa"
+                        onChangeText={(text) => { this.handleUpdateState("password", text) }}
+                        value={this.state.password}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                    />
+                    <Text style={styles.forgotPassword}>Forgot password?</Text>
+                </View>
 
-            <View>
-                <TouchableOpacity onPress={() => { navigation.navigate("ContactsScreen") }} style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>Log in</Text>
-                </TouchableOpacity>
-            </View>
+                <View>
+                    <TouchableOpacity onPress={this.onhandleSubmit} style={styles.buttonContainer}>
+                        <Text style={styles.buttonText}>Log in</Text>
+                    </TouchableOpacity>
+                </View>
 
-            <View style={styles.noAccountContainer}>
-                <Text style={styles.noAccountText}>Don't have an account?</Text>
-                <TouchableOpacity onPress={() => { navigation.navigate("SignupScreen")}}>
-                <Text style={styles.signupText}>Sign up</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={styles.noAccountContainer}>
+                    <Text style={styles.noAccountText}>Don't have an account?</Text>
+                    <TouchableOpacity onPress={() => { navigation.navigate("SignupScreen") }}>
+                        <Text style={styles.signupText}>Sign up</Text>
+                    </TouchableOpacity>
+                </View>
 
-        </ScrollView>
-    );
-
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 50,
-        marginTop:70
+        marginTop: 70
         // justifyContent:"space-around"
     },
     loginText: {
@@ -98,8 +130,8 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProp = (state) => {
+    return { auth: state }
+}
 
-export default connect(
-    function () {
-        return {}
-    }, {}) (LoginScreen)
+export default connect(mapStateToProp, { loginEmailAccount })(LoginScreen)
